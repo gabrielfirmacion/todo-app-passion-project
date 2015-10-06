@@ -1,16 +1,3 @@
-var TaskList = React.createClass({
-    render: function(){
-
-        return <div>
-            {this.props.items.map((task, taskIndex) =>
-                <div key={taskIndex}>
-                    {task}
-                    <button onClick={this.props.deleteTask} value={taskIndex}> Done </button>
-                </div>
-            )}
-        </div>;
-    }
- });
 
 var TaskApp = React.createClass({
     getInitialState: function(){
@@ -20,34 +7,34 @@ var TaskApp = React.createClass({
         }
     },
 
-    deleteTask: function(e) {
-        var taskIndex = parseInt(e.target.value, 10);
+    completeTask: function(event) {
+        var taskIndex = parseInt(event.target.value, 10);
         this.setState(state => {
             state.items.splice(taskIndex, 1);
             return {items: state.items};
         });
     },
 
-    onChange: function(e) {
-        this.setState({ task: e.target.value });
+    onChange: function(event) {
+        this.setState({ task: event.target.value });
     },
 
 
 
-    addTask:function (e){
+    addTask:function (event){
         this.setState({
             items: this.state.items.concat([this.state.task]),
             task: ''
         })
 
-        e.preventDefault();
+        event.preventDefault();
     },
 
     render: function(){
         return(
             <div>
                 <h1>My Task List </h1>
-                <TaskList items={this.state.items} deleteTask={this.deleteTask} />
+                <TaskList items={this.state.items} completeTask={this.completeTask} />
 
                 <form onSubmit={this.addTask}>
                     <input onChange={this.onChange} type="text" value={this.state.task}/>
@@ -57,6 +44,20 @@ var TaskApp = React.createClass({
         );
     }
 });
+
+var TaskList = React.createClass({
+    render: function(){
+
+        return <div>
+            {this.props.items.map((task, taskIndex) =>
+                <div key={taskIndex}>
+                    {task}
+                    <button onClick={this.props.completeTask} value={taskIndex}> Done </button>
+                </div>
+            )}
+        </div>;
+    }
+ });
 
 React.render(<TaskApp />, document.getElementById('content'));
 
