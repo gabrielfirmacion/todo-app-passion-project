@@ -1,18 +1,22 @@
-
 var TaskApp = React.createClass({
     getInitialState: function(){
         return {
-             items: [],
+             items: [
+                'Go to the doctor',
+                'Buy food',
+                'Play basketball',
+             ],
              task: ''
         }
     },
 
     completeTask: function(event) {
         var taskIndex = parseInt(event.target.value, 10);
-        this.setState(state => {
-            state.items.splice(taskIndex, 1);
-            return {items: state.items};
-        });
+        console.log(event.target.value);
+        console.log(taskIndex);
+        var currentList = this.state.items;
+        currentList.splice(taskIndex, 1);
+        this.setState({items: currentList});
     },
 
     onChange: function(event) {
@@ -49,13 +53,13 @@ var TaskList = React.createClass({
     render: function(){
 
         return <div>
-            {this.props.items.map((task, taskIndex) =>
-                <div key={taskIndex}>
-                    {task}
-                    <button onClick={this.props.completeTask} value={taskIndex}> Done </button>
-                </div>
-            )}
-        </div>;
+                    {this.props.items.map((task, taskIndex) =>
+                        <div key={taskIndex}>
+                            {task}
+                            <button onClick={this.props.completeTask} value={taskIndex}> Done </button>
+                        </div>
+                    )}
+                </div>;
     }
  });
 
