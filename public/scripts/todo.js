@@ -1,4 +1,5 @@
 var TaskApp = React.createClass({
+
     getInitialState: function(){
         return {
              items: [
@@ -6,42 +7,40 @@ var TaskApp = React.createClass({
                 'Buy food',
                 'Play basketball',
              ],
-             task: ''
+             taskbox: ''
         }
     },
 
     completeTask: function(event) {
         var taskIndex = parseInt(event.target.value, 10);
-        console.log(event.target.value);
-        console.log(taskIndex);
         var currentList = this.state.items;
         currentList.splice(taskIndex, 1);
         this.setState({items: currentList});
     },
 
-    onChange: function(event) {
-        this.setState({ task: event.target.value });
+    handleChange: function(event) {
+        this.setState({ taskbox: event.target.value });
     },
-
-
 
     addTask:function (event){
         this.setState({
-            items: this.state.items.concat([this.state.task]),
-            task: ''
-        })
+            items: this.state.items.concat([this.state.taskbox]),
+            taskbox: ''
+        });
 
         event.preventDefault();
     },
 
     render: function(){
+        var value = this.state.taskbox;
         return(
             <div>
                 <h1>My Task List </h1>
+
                 <TaskList items={this.state.items} completeTask={this.completeTask} />
 
                 <form onSubmit={this.addTask}>
-                    <input onChange={this.onChange} type="text" value={this.state.task}/>
+                    <input type="text" value={value} onChange={this.handleChange}/>
                     <button> Add Task </button>
                 </form>
             </div>
@@ -50,18 +49,25 @@ var TaskApp = React.createClass({
 });
 
 var TaskList = React.createClass({
-    render: function(){
+    render: function() {
+                console.log(this)
+                console.log(this.props)
+                var that = this;
+        return (
+                <div>
+                    {this.props.items.map(function(taskbox, taskIndex){
+                        return (
+                            <div key={taskIndex}>
+                                {taskbox}
+                                <button onClick={that.props.completeTask} value={taskIndex}>Done</button>
+                            </div>
+                        )
 
-        return <div>
-                    {this.props.items.map((task, taskIndex) =>
-                        <div key={taskIndex}>
-                            {task}
-                            <button onClick={this.props.completeTask} value={taskIndex}> Done </button>
-                        </div>
-                    )}
-                </div>;
+                    })}
+                </div>
+            );
     }
- });
+})
 
 React.render(<TaskApp />, document.getElementById('content'));
 
