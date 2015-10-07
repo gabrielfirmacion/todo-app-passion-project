@@ -53,10 +53,10 @@ var TaskList = React.createClass({
                 var that = this;
         return (
                 <div>
-                    {this.props.items.map(function(taskbox, taskIndex){
+                    {this.props.items.map(function(task, taskIndex){
                         return (
                             <div key={taskIndex}>
-                                {taskbox}
+                                {task}
                                 <button onClick={that.props.completeTask} value={taskIndex}>Done</button>
                             </div>
                         )
