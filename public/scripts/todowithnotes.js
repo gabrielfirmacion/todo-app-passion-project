@@ -49,18 +49,23 @@ var TaskApp = React.createClass({
 });
 
 var TaskList = React.createClass({
-    render: function(){
+    render: function() {
+                var that = this; //giving 'this' a variable so that I can use it again later
+        return (
+                <div>
+                    {this.props.items.map(function(taskbox, taskIndex){
+                        return (
+                            <div key={taskIndex}>
+                                {taskbox} //prints the task
+                                <button onClick={that.props.completeTask} value={taskIndex}>Done</button> //used that as a sub for this because if you use 'this', code will break because it went a level deeper when you used a map method
+                            </div>
+                        )
 
-        return <div>
-                    {this.props.items.map((taskbox, taskIndex) =>
-                        <div key={taskIndex}>
-                            {taskbox}
-                            <button onClick={this.props.completeTask} value={taskIndex}> Done </button>
-                        </div>
-                    )}
-                </div>;
+                    })}
+                </div>
+            );
     }
- });
+});
 
-React.render(<TaskApp />, document.getElementById('content'));
+React.render(<TaskApp />, document.getElementById('content')); //Calling the component TaskApp which is my main component and sort of like pasting that into the div of my html file with an ID of content.
 

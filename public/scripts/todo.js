@@ -50,8 +50,6 @@ var TaskApp = React.createClass({
 
 var TaskList = React.createClass({
     render: function() {
-                console.log(this)
-                console.log(this.props)
                 var that = this;
         return (
                 <div>
@@ -67,7 +65,7 @@ var TaskList = React.createClass({
                 </div>
             );
     }
-})
+});
 
 React.render(<TaskApp />, document.getElementById('content'));
 
