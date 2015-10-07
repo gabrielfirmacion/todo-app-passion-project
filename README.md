@@ -1,6 +1,8 @@
 # React Todo App
 
-This is a simple to Todo App written in React. I got the server.rb file from Facebook so that you can run this app through a server. It has simple functions of adding a task and deleting a task as done.
+This is a simple to Todo App written in React. I decided to study React for my project in Dev Bootcamp. We had a total of 4 days to finish a very simple and functional app.
+
+I got the server.rb file from Facebook so that you can run this app through a server. It has simple functions of adding a task and deleting a task as done.
 
 ### To run:
 
